@@ -23,8 +23,13 @@ for v in mp4_list:
     if v[-4:] == ".mp4":
         video_list.append(v)
 
+print(video_list)
+
+
 for v in video_list:
     cmd = "ffmpeg -i " + dir_path + "/" + v + "  2>&1 | grep \"Duration\"| cut -d ' ' -f 4 | sed s/,// | sed 's@\..*@@g' | awk '{ split($1, A, \":\"); split(A[3], B, \".\"); print 3600*A[1] + 60*A[2] + B[1] }'"
+    print(v)
+    print(os.popen(cmd).read())
     video_len.append(int(os.popen(cmd).read()))
     
 
@@ -32,9 +37,10 @@ for v in video_list:
 for i in range(0, len(video_list)):
     print(video_list[i], video_len[i])
 
-
+exit()
 for i in range(0, len(video_list)):
     # cut_len 길이 이상이면 cut_len 길이의 클립 여러개로 자르기
+    print("Cutting video : ", video_list[i])
     if video_len[i] > cut_len:
         cur_start = 0
         filename = video_list[i].split('.')[0]

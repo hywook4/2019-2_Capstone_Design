@@ -2,11 +2,12 @@
 
 ## Dependency
 
-moviepy
-numpy
-librosa
-matplotlib
-ffmpeg
+* moviepy
+* numpy
+* librosa
+* matplotlib
+* ffmpeg
+* opencv
 
 ## How to Use
 

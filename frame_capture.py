@@ -1,6 +1,14 @@
 import cv2
+import argparse
 
-print(cv2.__version__)
+parser = argparse.ArgumentParser()
+parser.add_argument('-dp', '--dirpath', type=str, required=True, help="Directory path")
+parser.add_argument('-cl', '--cutlength', type=int, required=True, help="Clip length")
+args = parser.parse_args()
+
+
+
+
 vidcap = cv2.VideoCapture('twice3-1.mp4')
 success,image = vidcap.read()
 count = 0

@@ -37,7 +37,7 @@ for v in video_list:
 for i in range(0, len(video_list)):
     print(video_list[i], video_len[i])
 
-exit()
+
 for i in range(0, len(video_list)):
     # cut_len 길이 이상이면 cut_len 길이의 클립 여러개로 자르기
     print("Cutting video : ", video_list[i])

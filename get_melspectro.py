@@ -14,23 +14,37 @@ import pylab
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-fp', '--filepath', type=str, required=True, help="Import file path")
-parser.add_argument('-sp', '--savepath', type=str, required=False, help="File save path", default="default")
+parser.add_argument('-dp', '--dirpath', type=str, required=True, help="Import directory path")
+parser.add_argument('-sp', '--savepath', type=str, required=True, help="Save path")
 args = parser.parse_args()
 
-print(args.filepath)
-print(args.savepath)
+print("Import data from : ", args.dirpath)
+print("Save image at : ", args.savepath)
 
-def Mel_spectrogram(filepath):
-    Filename = filepath.split('.')[0]
-    savepath = Filename + '.jpg'  
+dir_path = args.dirpath
+save_path = args.savepath
 
-    if args.savepath != "default":
-        savepath = args.savepath
+string = os.popen('ls ' + dir_path + ' | grep .mp4').read()
+
+mp4_list = string.split("\n")
+
+video_list = []
+video_len = []
+
+for v in mp4_list:
+    if v[-4:] == ".mp4":
+        video_list.append(v)
+
+
+def Mel_spectrogram(filename):
+    Filename = filename.split('.')[0]
+    savepath = save_path + '/' + Filename + '.jpg'  
+
+
     
     pylab.axis('off')
     pylab.axes([0., 0., 1., 1.], frameon=False, xticks=[], yticks=[])
-    y, sr = librosa.load(filepath)
+    y, sr = librosa.load(dir_path+'/'+filename)
     s = librosa.feature.melspectrogram(y, sr=sr)
     librosa.display.specshow(librosa.power_to_db(s, ref=np.max))
     pylab.savefig(savepath, bbox_inches = None, pad_inches = 0)
@@ -64,8 +78,13 @@ def main():
     file=open(path, "r")
     reader = csv.reader(file)
     create_and_copy(reader)'''
-    Mel_spectrogram(args.filepath)
 
+    for f in video_list:
+        print(f)
+        Mel_spectrogram(f)
+
+    print("Done")
+    
         
 
 if __name__ ==  '__main__':

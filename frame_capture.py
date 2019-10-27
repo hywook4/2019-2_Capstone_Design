@@ -30,6 +30,4 @@ for i in range(0, len(video_list))
     if(count%9==0):
         imageName = name[:-4] + str(count) + '.jpg'
         cv2.imwrite(imageName, image)     # save frame as JPEG file
-    if cv2.waitKey(10) == 27:                     # exit if Escape is hit
-        break
     count += 1
